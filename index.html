@@ -6,44 +6,69 @@
     <!-- set viewport to device width to allow responsiveness -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS from CDN -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-
-    <!-- link to custom stylesheet (always require after Bootstrap) -->
-    <link rel="stylesheet" href="/css/style.css" media="screen" title="no title" charset="utf-8">
-    <!-- jQuery from CDN -->
-
-
-    <!-- link to custom javascript file (always require after external JS libraries) -->
+    <link rel="stylesheet" href="css/style.css">
 
     <title>Tic Tac Toe</title>
   </head>
   <body>
-    <div class="container">
-      <div class="row text-center">
-        <div class="col-md-12">
-          <h1>Tic Tac Toe</h1>
-          <hr>
-        </div>
-      </div>
-      <div class="row">
+    <header>
+        <h1 class="displayTurn"></h1>
+    </header>
+    <div class="board">
 
-        <!-- a column represents our game board -->
-        <!-- the `offset` class helps us center the board -->
-        <div class="col-md-6 col-md-offset-3" id="board">
+        <div class="A">
 
-          <!-- you can put rows inside of columns! -->
-          <!-- Bootstrap subdivides these 'nested' rows into 12 columns, too! -->
-          <div class="row">
-            <div class="col-md-4 box">a</div>
-            <div class="col-md-4 box">a</div>
-            <div class="col-md-4 box">a</div>
-          </div>
+            <div class="A0 box">
+                [ ]
+            </div>
 
+            <div class="A1 box">
+                [ ]
+            </div>
 
+            <div class="A2 box">
+                [ ]
+            </div>
 
         </div>
-      </div>
+
+        <div class="B">
+
+            <div class="B0 box">
+                [ ]
+            </div>
+
+            <div class="B1 box">
+                [ ]
+            </div>
+
+            <div class="B2 box">
+                [ ]
+            </div>
+
+        </div>
+
+        <div class="C">
+
+            <div class="C0 box">
+                [ ]
+            </div>
+
+            <div class="C1 box">
+                [ ]
+            </div>
+
+            <div class="C2 box">
+                [ ]
+            </div>
+
+        </div>
+
+
+
+
     </div>
+    <button type="button" name="button">RESET</button>
+    <script src="js/app.js"></script>
   </body>
 </html>
