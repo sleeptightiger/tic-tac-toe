@@ -6,11 +6,7 @@
 //method if marked display
 
 //creat board
-let board = [
-    [{}, {}, {}],
-    [{}, {}, {}],
-    [{}, {}, {}]
-];
+
 let row = ['A', 'B', 'C'];
 let column = ['0', '1', '2'];
 
@@ -18,61 +14,75 @@ let column = ['0', '1', '2'];
 //true === x, false === o
 let whosTurn = true;
 let gameOver = false;
+let notGameStart = false;
+
+//creat board
+var createBoard = function() {
+    for (var i = 0; i < row.length; i++) {
+        var rowElement = document.createElement('div');
+        rowElement.setAttribute('class', `${row[i]}`);
+        document.querySelector('.board').appendChild(rowElement);
+        for (var j = 0; j < column.length; j++) {
+            var boxElement = document.createElement('div');
+            boxElement.setAttribute('class', `${row[i]}${column[j]} box`);
+            document.querySelector(`.${row[i]}`).appendChild(boxElement);
+
+        }
+    }
+}
 
 //populate board
-function populateBoard(board) {
-    for (var i = 0; i < board.length; i++) {
-        for (var j = 0; j < board[i].length; j++) {
+function populateBoard() {
+    let board = [
+        [{}, {}, {}],
+        [{}, {}, {}],
+        [{}, {}, {}]
+    ];
+    for (var i = 0; i < row.length; i++) {
+        for (var j = 0; j < column.length; j++) {
             let box = {
                 mark: '',
                 marked: false,
                 link: `.${row[i]}${column[j]}`,
             };
             board[i][j] = box;
+            let thisBox = board[i][j];
+            let boxElement = document.querySelector(`.${row[i]}${column[j]}`);
+            boxElement.addEventListener('click', function(event){
+                notGameStart = true;
+                if(!gameOver) {
+                    if(thisBox.marked === true) {
+                        alert('Try Again!');
+                    } else {
+                        thisBox.marked = true;
+                        thisBox.mark = turn();
+                    }
+                    //nextTurn();
+                    displayBoard(board);
+
+                    //displayWhosMove();
+
+                } else {
+                    alert('Reset board if you want to play again.');
+                }
+
+            });
+
         }
     }
+
     return board;
 }
 
-//add click event to each box
-function clickable(board) {
-
-    for (var i = 0; i < board.length; i++) {
-        for (var j = 0; j < board[i].length; j++) {
-            let thisBox = board[i][j];
-
-            let square = document.querySelector(`.${row[i]}${column[j]}`);
-            square.addEventListener('click', function(event) {
-                //console.log(board);
-                //console.log(thisBox.marked);
-                if(thisBox.marked === true) {
-                    alert('Try Again!');
-                } else {
-                    if(!gameOver) {
-
-                        // show box as marked
-                        thisBox.marked = true;
-                        thisBox.mark = turn();
-                        gameOver = check3inRow(board);
-                        displayBoard(board);
-                        if(!gameOver) {
-                            whosTurn = !whosTurn;
-                        } else {
-                            displayWinner();
-                        }
-                    } else {
-                        alert('Please reset the board.');
-                    }
-                }
-            });
-        }
-    }
-    //return board;
+function nextTurn() {
+    //console.log('nextTurn is running');
+    whosTurn = !whosTurn;
+    //displayWhosMove();
 }
 
 // display who's turn
 function turn() {
-    //console.log('TURN function starting');
+
     if(whosTurn) {
         return 'X';
     } else {
@@ -81,16 +91,23 @@ function turn() {
 }
 
 function displayWhosMove() {
+    //console.log('displayWhosMove running');
     let heading = document.querySelector('.displayTurn');
     let t = turn();
     heading.innerText = `Player ${t}\'s move`;
 }
 
-
-// display mark
-function displayMark(divClass) {
-    let box = document.querySelector(divClass);
-    box.innerText = `[${turn()}]`;
+function isBoardFull(board) {
+    let check = true;
+    for (var i = 0; i < board.length; i++) {
+        for (var j = 0; j < board[i].length; j++) {
+            if(board[i][j].marked === false) {
+                check = false;
+                break;
+            }
+        }
+    }
+    return check;
 }
 
 // check if three in a row
@@ -135,7 +152,16 @@ function check3inRow(board) {
 
 
 function displayWinner() {
-    alert(`Player ${turn()} wins!!`);
+    let heading = document.querySelector('.displayTurn');
+    let t = turn();
+    heading.innerText = `Player ${t} wins!!`;
+    gameOver = true;
+}
+
+function displayDraw() {
+    let heading = document.querySelector('.displayTurn');
+    heading.innerText = `This game is a draw ¯\\_(ツ)_/¯`;
+    gameOver = true;
 }
 
 function displayBoard(board) {
@@ -153,47 +179,46 @@ function displayBoard(board) {
         }
     }
     displayWhosMove();
+    if(check3inRow(board)) {
+        //console.log('check3inRow goes through');
+        displayWinner();
+    }
+
+    if (isBoardFull(board)) {
+        displayDraw();
+    }
+    if(notGameStart) {
+        console.log('here');
+        nextTurn();
+    }
+
 }
 
 
-// function reset(board) {
-//     for (var i = 0; i < board.length; i++) {
-//         for (var j = 0; j < board[i].length; j++) {
-//             let box = {
-//                 mark: '',
-//                 marked: false,
-//                 link: `.${row[i]}${column[j]}`,
-//             };
-//             board[i][j] = box;
-//             let thisBox = board[i][j];
-//
-//             let square = document.querySelector(`.${row[i]}${column[j]}`);
-//             thisBox.marked = false;
-//             thisBox.mark = '';
-//             unmark(thisBox.link);
-//             whosTurn = true;
-//             gameOver = false;
-//             displayWhosMove();
-//         }
-//     }
-//     return board;
-//
-// }
-//
-// function unmark(divClass) {
-//     let box = document.querySelector(divClass);
-//     box.innerText = "[ ]";
-//}
+function reset() {
+    clearBoard();
+    createBoard();
+    whosTurn = true;
+    gameOver = false;
+
+    let nextGame = populateBoard();
+    notGameStart = false;
+    displayBoard(nextGame);
+
+}
+
+function clearBoard() {
+    let board = document.querySelector('.board');
+    board.innerHTML = '';
+}
+
 
 let button = document.querySelector('button');
-button.addEventListener('click', function(event) {
-    alert('Clicked!');
-    //board = reset();
-    //console.log(board);
-    //populateBoard();
-});
+button.addEventListener('click', reset);
 
 //GAME IN PLAY
-let inGameBoard = populateBoard(board);
-clickable(inGameBoard);
+createBoard();
+let inGameBoard = populateBoard();
 displayBoard(inGameBoard);
+//gameStart = false;
+//displayWhosMove();
