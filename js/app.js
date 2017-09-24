@@ -1,9 +1,6 @@
-//create board
-//populate board with box objects
-//box object properties:
-//link to appropriate div
-//boolean marked
-//method if marked display
+
+//fix diagonal inverse diagonal check
+//displayWinner not working
 
 //creat board
 
@@ -14,10 +11,12 @@ let column = ['0', '1', '2'];
 //true === x, false === o
 let whosTurn = true;
 let gameOver = false;
-let notGameStart = false;
+let isFirstMove = true;
+
 
 //creat board
 var createBoard = function() {
+
     for (var i = 0; i < row.length; i++) {
         var rowElement = document.createElement('div');
         rowElement.setAttribute('class', `${row[i]}`);
@@ -33,6 +32,7 @@ var createBoard = function() {
 
 //populate board
 function populateBoard() {
+
     let board = [
         [{}, {}, {}],
         [{}, {}, {}],
@@ -48,19 +48,25 @@ function populateBoard() {
             board[i][j] = box;
             let thisBox = board[i][j];
             let boxElement = document.querySelector(`.${row[i]}${column[j]}`);
+            console.log('clicked is NOT running..');
             boxElement.addEventListener('click', function(event){
-                notGameStart = true;
+
+
                 if(!gameOver) {
                     if(thisBox.marked === true) {
                         alert('Try Again!');
                     } else {
                         thisBox.marked = true;
-                        thisBox.mark = turn();
-                    }
-                    //nextTurn();
-                    displayBoard(board);
+                        //console.log('about to mark box');
 
-                    //displayWhosMove();
+                        thisBox.mark = turn(true);
+                    }
+
+
+                    displayBoard(board);
+                    //console.log(`whosTurn: ${whosTurn}, gameOver: ${gameOver}`);
+
+
 
                 } else {
                     alert('Reset board if you want to play again.');
@@ -74,30 +80,36 @@ function populateBoard() {
     return board;
 }
 
-function nextTurn() {
-    //console.log('nextTurn is running');
-    whosTurn = !whosTurn;
-    //displayWhosMove();
-}
 
 // display who's turn
-function turn() {
-
-    if(whosTurn) {
-        return 'X';
+function turn(justChecking) {
+    //console.log('turn() is running..');
+    //console.log(`whosTurn: ${whosTurn}, gameOver: ${gameOver}`);
+    if(justChecking) {
+        //rewrite as ternary shorthand
+        if(whosTurn) {
+            return 'X';
+        } else {
+            return 'O';
+        }
     } else {
-        return 'O';
+        // console.log('TURN SWITCHED!!!!!!!!!!!!!!!');
+        whosTurn = !whosTurn;
     }
+
 }
 
 function displayWhosMove() {
-    //console.log('displayWhosMove running');
+    //console.log('displayWhosMove() is running..');
+    //console.log(`whosTurn: ${whosTurn}, gameOver: ${gameOver}`);
     let heading = document.querySelector('.displayTurn');
-    let t = turn();
+    let t = turn(true);
     heading.innerText = `Player ${t}\'s move`;
 }
 
 function isBoardFull(board) {
+    //console.log('isBoardFull() is running..');
+    //console.log(`whosTurn: ${whosTurn}, gameOver: ${gameOver}`);
     let check = true;
     for (var i = 0; i < board.length; i++) {
         for (var j = 0; j < board[i].length; j++) {
@@ -112,6 +124,8 @@ function isBoardFull(board) {
 
 // check if three in a row
 function check3inRow(board) {
+    console.log('check3inRow() is running..');
+    console.log(`whosTurn: ${whosTurn}, gameOver: ${gameOver}, turn(true): ${turn(true)}`);
     let check = false;
 
     let count = 0;
@@ -123,19 +137,19 @@ function check3inRow(board) {
     for (var i = 0; i < board.length; i++) {
         for (var j = 0; j < board[i].length; j++) {
             //check row
-            if(board[i][j].mark === turn()) {
+            if(board[i][j].mark === turn(true)) {
                 count++;
             }
             //check column
-            if (board[j][i].mark === turn()) {
+            if (board[j][i].mark === turn(true)) {
                 columnCount++;
             }
             //check diagonal
-            if(i === j && board[i][j].mark === turn()) {
+            if(i === j && board[i][j].mark === turn(true)) {
                 dCount++;
             }
             //check inverse diagonal
-            if((i === j || (i === 0 && j === 2) || (i === 2 && j === 0)) && board[i][j].mark === turn()) {
+            if((i === j || (i === 0 && j === 2) || (i === 2 && j === 0)) && board[i][j].mark === turn(true)) {
                 invDCount++;
             }
         }
@@ -145,6 +159,7 @@ function check3inRow(board) {
         } else {
             count = 0;
             columnCount = 0;
+
         }
     }
     return check;
@@ -152,20 +167,25 @@ function check3inRow(board) {
 
 
 function displayWinner() {
+    console.log('displayWinner() is running..');
+    //console.log(`whosTurn: ${whosTurn}, gameOver: ${gameOver}`);
     let heading = document.querySelector('.displayTurn');
-    let t = turn();
+    let t = turn(true);
     heading.innerText = `Player ${t} wins!!`;
     gameOver = true;
 }
 
 function displayDraw() {
+    //console.log('displayDraw() is running..');
+    //console.log(`whosTurn: ${whosTurn}, gameOver: ${gameOver}`);
     let heading = document.querySelector('.displayTurn');
     heading.innerText = `This game is a draw ¯\\_(ツ)_/¯`;
     gameOver = true;
 }
 
 function displayBoard(board) {
-
+    // console.log('displayBoard() is running..');
+    // console.log(`whosTurn: ${whosTurn}, gameOver: ${gameOver}, isFirstMove: ${isFirstMove}`);
     for (var i = 0; i < board.length; i++) {
         for (var j = 0; j < board[i].length; j++) {
             let thisBox = board[i][j];
@@ -178,36 +198,51 @@ function displayBoard(board) {
 
         }
     }
-    displayWhosMove();
+
+
+
+
+
     if(check3inRow(board)) {
-        //console.log('check3inRow goes through');
         displayWinner();
     }
 
-    if (isBoardFull(board)) {
+    if(isBoardFull(board)) {
         displayDraw();
     }
-    if(notGameStart) {
-        console.log('here');
-        nextTurn();
+
+
+    if(!isFirstMove) {
+        //console.log("turn about to be switched!!!!!!!!!!!!!!");
+        turn();
     }
+    isFirstMove = false;
+
+    displayWhosMove();
 
 }
 
 
+
+
 function reset() {
+    //console.log('rest() is running..');
+    //console.log(`whosTurn: ${whosTurn}, gameOver: ${gameOver}`);
     clearBoard();
-    createBoard();
+
+
     whosTurn = true;
     gameOver = false;
-
-    let nextGame = populateBoard();
     notGameStart = false;
+    createBoard();
+    let nextGame = populateBoard();
     displayBoard(nextGame);
 
 }
 
 function clearBoard() {
+    //console.log('clearBoard() is running..');
+    //console.log(`whosTurn: ${whosTurn}, gameOver: ${gameOver}`);
     let board = document.querySelector('.board');
     board.innerHTML = '';
 }
@@ -220,5 +255,3 @@ button.addEventListener('click', reset);
 createBoard();
 let inGameBoard = populateBoard();
 displayBoard(inGameBoard);
-//gameStart = false;
-//displayWhosMove();
