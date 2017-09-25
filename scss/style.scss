@@ -29,8 +29,10 @@ $colorO: #DB504A;
     float: left;
     font-size: 9vw;
     font-family: $fred;
-
+    transition: color 500ms ease-in-out;
 }
+
+
 
 
 body {
@@ -55,6 +57,10 @@ body {
     position: absolute;
     left: 3%;
     top: 5%;
+
+    // transform: translate(-300px, 0);
+    // opacity: 0;
+    // transition: all 500ms ease-in-out;
     .win {
         background-color: $winColor;
     }
@@ -69,6 +75,7 @@ body {
         background-color: $colorO;
     }
     span {
+        border-radius: 2px;
         float: left;
         //background-color: #f00;
         height: 100%;
@@ -79,9 +86,9 @@ body {
     }
 
     p {
-        flex: 2;
+        flex: 3;
         font-family: $alertText;
-        font-size: 1.1em;
+        font-size: 1.2em;
         //padding-top: 10px;
         display: flex;
         align-items: center;
@@ -91,6 +98,12 @@ body {
             padding: 0;
         }
     }
+
+    // &.isActive {
+    //     opacity: 1;
+    //     transform: translate(0, 0);
+    // }
+
 }
 
 .largeAlert {
@@ -123,4 +136,8 @@ h1 {
     text-shadow: $textShadow;
     font-size: 4em;
     margin: 20px 0;
+}
+
+.board .strike {
+    color: $alertColor ;
 }

@@ -14,7 +14,8 @@
   height: 30%;
   float: left;
   font-size: 9vw;
-  font-family: "Fredoka One", cursive; }
+  font-family: "Fredoka One", cursive;
+  transition: color 500ms ease-in-out; }
 
 body {
   text-align: center;
@@ -44,15 +45,16 @@ body {
   .displayTurn .O {
     background-color: #DB504A; }
   .displayTurn span {
+    border-radius: 2px;
     float: left;
     height: 100%;
     flex: 1;
     font-family: "Fredoka One", cursive;
     font-size: 4em; }
   .displayTurn p {
-    flex: 2;
+    flex: 3;
     font-family: "Lato", sans-serif;
-    font-size: 1.1em;
+    font-size: 1.2em;
     display: flex;
     align-items: center;
     justify-content: center; }
@@ -84,5 +86,8 @@ h1 {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
   font-size: 4em;
   margin: 20px 0; }
+
+.board .strike {
+  color: #A40606; }
 
 /*# sourceMappingURL=style.css.map */
