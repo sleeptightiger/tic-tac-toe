@@ -29,10 +29,19 @@ $colorO: #DB504A;
     float: left;
     font-size: 9vw;
     font-family: $fred;
-    transition: color 500ms ease-in-out;
+    transition: all 500ms ease-in-out;
+    span {
+        display: inline-block;
+        transition: all 500ms ease-in-out;
+    }
+
 }
 
 
+.strike {
+    color: $alertColor ;
+    transform: scale(1.4);
+}
 
 
 body {
@@ -58,9 +67,6 @@ body {
     left: 3%;
     top: 5%;
 
-    // transform: translate(-300px, 0);
-    // opacity: 0;
-    // transition: all 500ms ease-in-out;
     .win {
         background-color: $winColor;
     }
@@ -136,8 +142,4 @@ h1 {
     text-shadow: $textShadow;
     font-size: 4em;
     margin: 20px 0;
-}
-
-.board .strike {
-    color: $alertColor ;
 }

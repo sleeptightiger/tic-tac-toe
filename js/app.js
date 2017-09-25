@@ -212,7 +212,7 @@ function getWinner(board, turn) {
             if(i === j && board[i][j].mark === turn) {
                 dCount++;
                 diagonal.push(board[i][j].link);
-                console.log(diagonal);
+                //console.log(diagonal);
             }
             //check inverse diagonal
             if(((i === 1 && j === 1) || (i === 0 && j === 2) || (i === 2 && j === 0)) && board[i][j].mark === turn) {
@@ -239,7 +239,7 @@ function getWinner(board, turn) {
     } else if (columns.length === 3) {
         return columns;
     } else if (diagonal.length == 3) {
-        console.log('diagonal returned');
+        //console.log('diagonal returned');
         return diagonal;
     } else if(invDiagonal.length === 3) {
         return invDiagonal;
@@ -247,9 +247,11 @@ function getWinner(board, turn) {
 }
 
 function strike(winners) {
-    for (var i = 0; i < winners.length; i++) {
-        document.querySelector(winners[i]).classList.add('strike');
-    }
+    setTimeout(function () {
+        for (var i = 0; i < winners.length; i++) {
+            document.querySelector(`${winners[i]} span`).classList.add('strike');
+        }
+    },0);
 }
 
 
@@ -278,7 +280,7 @@ function displayBoard(board, isMarked) {
             let thisBox = board[i][j];
             let square = document.querySelector(`.${row[i]}${column[j]}`);
             if(board[i][j].marked) {
-                square.innerText = `[${board[i][j].mark}]`;
+                square.innerHTML = `[<span>${board[i][j].mark}</span>]`;
             } else {
                 square.innerHTML = '[  &nbsp; ]';
             }
