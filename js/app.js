@@ -54,7 +54,7 @@ function populateBoard() {
                 if(!gameOver) {
                     var marked = thisBox.marked;
                     if(thisBox.marked === true) {
-                        alert('Try Again!');
+                        displayTry();
                     } else {
                         thisBox.marked = true;
                         //console.log('about to mark box');
@@ -82,14 +82,13 @@ function populateBoard() {
 
 function displayAlert() {
     let heading = document.querySelector('.displayTurn');
-    let t = turn(true);
-    heading.innerHTML = `<p><span>!</span>Reset board if you want to play again.</p>`;
+    heading.innerHTML = `<span class="alert largeAlert">!</span><p>Reset board if you want to play again</p>`;
 }
 
 function displayTry() {
+    console.log("try going through");
     let heading = document.querySelector('.displayTurn');
-    let t = turn(true);
-    heading.innerHTML = `<p><span>!</span>Try again.</p>`;
+    heading.innerHTML = '<span class="alert">!</span><p>Try again</p>';
 }
 
 
@@ -114,7 +113,7 @@ function displayWhosMove() {
 
     let heading = document.querySelector('.displayTurn');
     let t = turn(true);
-    heading.innerHTML = `<p><span>${t}</span>Your Move</p>`;
+    heading.innerHTML = `<span class="${t}">${t}</span><p>Your Move</p>`;
 }
 
 function isBoardFull(board) {
@@ -180,14 +179,14 @@ function displayWinner(turn) {
 
     let heading = document.querySelector('.displayTurn');
 
-    heading.innerHTML = `<p><span>${turn}</span>You Win!</p>`;
+    heading.innerHTML = `<span class="win">${turn}</span><p>You Win!</p>`;
     gameOver = true;
 }
 
 function displayDraw() {
 
     let heading = document.querySelector('.displayTurn');
-    heading.innerHTML = `<p><span>!</span>This game is a draw ¯\\_(ツ)_/¯</p>`;
+    heading.innerHTML = `<span class="alert largeAlert">!</span><p>This game is a draw ¯\\_(ツ)_/¯</p>`;
     gameOver = true;
 }
 
@@ -207,14 +206,17 @@ function displayBoard(board, isMarked) {
     }
 
     let checkForThisTurn = turn(true);
-    console.log(`!isFirstMove: ${!isFirstMove}, !isMarked: ${!isMarked}`);
+
     if(!isFirstMove && !isMarked) {
 
         turn();
     }
     isFirstMove = false;
 
-    displayWhosMove();
+    if(!isMarked) {
+        displayWhosMove();
+    }
+
 
     if(isBoardFull(board)) {
         displayDraw();

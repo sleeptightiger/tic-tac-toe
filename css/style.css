@@ -21,9 +21,48 @@ body {
   background-color: #FFDE00; }
 
 .displayTurn {
-  font-size: 3em;
+  font-size: 1em;
   letter-spacing: 2px;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); }
+  text-shadow: "Lato", sans-serif;
+  width: 300px;
+  height: 75px;
+  background-color: rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+  display: flex;
+  color: white;
+  border-radius: 2px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  position: absolute;
+  left: 3%;
+  top: 5%; }
+  .displayTurn .win {
+    background-color: #6B8900; }
+  .displayTurn .alert {
+    background-color: #A40606; }
+  .displayTurn .X {
+    background-color: #084C61; }
+  .displayTurn .O {
+    background-color: #DB504A; }
+  .displayTurn span {
+    float: left;
+    height: 100%;
+    flex: 1;
+    font-family: "Fredoka One", cursive;
+    font-size: 4em; }
+  .displayTurn p {
+    flex: 2;
+    font-family: "Lato", sans-serif;
+    font-size: 1.1em;
+    display: flex;
+    align-items: center;
+    justify-content: center; }
+    .displayTurn p .largeAlert {
+      font-size: .5em;
+      padding: 0; }
+
+.largeAlert {
+  font-size: .5em;
+  padding: 0; }
 
 .displayTurn, button {
   font-family: "Fredoka One", cursive;
@@ -43,6 +82,7 @@ button {
 h1 {
   font-family: "Fredoka One", cursive;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-  font-size: 3em; }
+  font-size: 4em;
+  margin: 20px 0; }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,6 +1,11 @@
 $schoolBus: #FFDE00;
 $textShadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 $fred: 'Fredoka One', cursive;
+$alertText: 'Lato', sans-serif;
+$alertColor: #A40606;
+$winColor: #6B8900;
+$colorX: #084C61;
+$colorO: #DB504A;
 
 
 .board {
@@ -33,10 +38,64 @@ body {
     background-color: $schoolBus;
 }
 
+
+
 .displayTurn {
-    font-size: 3em;
+    font-size: 1em;
     letter-spacing: 2px;
-    text-shadow: $textShadow;
+    text-shadow: $alertText;
+    width: 300px;
+    height: 75px;
+    background-color: rgba(0, 0, 0, .4);
+    overflow: hidden;
+    display: flex;
+    color: white;
+    border-radius: 2px;
+    box-shadow: $textShadow;
+    position: absolute;
+    left: 3%;
+    top: 5%;
+    .win {
+        background-color: $winColor;
+    }
+    .alert {
+        background-color: $alertColor;
+    }
+
+    .X {
+        background-color: $colorX;
+    }
+    .O {
+        background-color: $colorO;
+    }
+    span {
+        float: left;
+        //background-color: #f00;
+        height: 100%;
+        flex: 1;
+        font-family: $fred;
+        font-size: 4em;
+        //padding: 2px 0;
+    }
+
+    p {
+        flex: 2;
+        font-family: $alertText;
+        font-size: 1.1em;
+        //padding-top: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .largeAlert {
+            font-size: .5em;
+            padding: 0;
+        }
+    }
+}
+
+.largeAlert {
+    font-size: .5em;
+    padding: 0;
 }
 
 .displayTurn, button {
@@ -62,5 +121,6 @@ button {
 h1 {
     font-family: $fred;
     text-shadow: $textShadow;
-    font-size: 3em;
+    font-size: 4em;
+    margin: 20px 0;
 }
