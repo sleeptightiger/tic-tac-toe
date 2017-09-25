@@ -187,7 +187,7 @@ function displayBoard(board) {
             if(board[i][j].marked) {
                 square.innerText = `[${board[i][j].mark}]`;
             } else {
-                square.innerText = `[ ]`;
+                square.innerHTML = '[  &nbsp; ]';
             }
 
         }
