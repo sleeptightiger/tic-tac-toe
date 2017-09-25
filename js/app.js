@@ -52,6 +52,7 @@ function populateBoard() {
 
 
                 if(!gameOver) {
+                    var marked = thisBox.marked;
                     if(thisBox.marked === true) {
                         alert('Try Again!');
                     } else {
@@ -62,13 +63,13 @@ function populateBoard() {
                     }
 
 
-                    displayBoard(board);
+                    displayBoard(board, marked);
 
 
 
 
                 } else {
-                    alert('Reset board if you want to play again.');
+                    displayAlert();
                 }
 
             });
@@ -77,6 +78,18 @@ function populateBoard() {
     }
 
     return board;
+}
+
+function displayAlert() {
+    let heading = document.querySelector('.displayTurn');
+    let t = turn(true);
+    heading.innerHTML = `<p><span>!</span>Reset board if you want to play again.</p>`;
+}
+
+function displayTry() {
+    let heading = document.querySelector('.displayTurn');
+    let t = turn(true);
+    heading.innerHTML = `<p><span>!</span>Try again.</p>`;
 }
 
 
@@ -101,7 +114,7 @@ function displayWhosMove() {
 
     let heading = document.querySelector('.displayTurn');
     let t = turn(true);
-    heading.innerText = `Player ${t}\'s move`;
+    heading.innerHTML = `<p><span>${t}</span>Your Move</p>`;
 }
 
 function isBoardFull(board) {
@@ -148,7 +161,7 @@ function check3inRow(board, turn) {
                 invDCount++;
             }
         }
-        console.log(`dCount: ${dCount}, invDCount: ${invDCount}`);
+        //console.log(`dCount: ${dCount}, invDCount: ${invDCount}`);
         if(count === 3 || columnCount === 3 || dCount === 3 || invDCount === 3) {
             check = true;
             break;
@@ -163,22 +176,22 @@ function check3inRow(board, turn) {
 
 
 function displayWinner(turn) {
-    console.log('displayWinner() is running..');
+
 
     let heading = document.querySelector('.displayTurn');
 
-    heading.innerText = `Player ${turn} wins!!`;
+    heading.innerHTML = `<p><span>${turn}</span>You Win!</p>`;
     gameOver = true;
 }
 
 function displayDraw() {
 
     let heading = document.querySelector('.displayTurn');
-    heading.innerText = `This game is a draw ¯\\_(ツ)_/¯`;
+    heading.innerHTML = `<p><span>!</span>This game is a draw ¯\\_(ツ)_/¯</p>`;
     gameOver = true;
 }
 
-function displayBoard(board) {
+function displayBoard(board, isMarked) {
 
     for (var i = 0; i < board.length; i++) {
         for (var j = 0; j < board[i].length; j++) {
@@ -194,7 +207,8 @@ function displayBoard(board) {
     }
 
     let checkForThisTurn = turn(true);
-    if(!isFirstMove) {
+    console.log(`!isFirstMove: ${!isFirstMove}, !isMarked: ${!isMarked}`);
+    if(!isFirstMove && !isMarked) {
 
         turn();
     }

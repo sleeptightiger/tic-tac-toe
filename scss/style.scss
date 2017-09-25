@@ -22,22 +22,11 @@ $fred: 'Fredoka One', cursive;
     height: 30%;
     //outline: 1px solid;
     float: left;
-    font-size: 10vw;
+    font-size: 9vw;
     font-family: $fred;
 
 }
 
-
-
-// .A, .B {
-//     border-bottom: 1px solid;
-//     box-shadow: 0 2px 0 rgba(0, 0, 0, .1);
-// }
-//
-// .A0, .A1, .B0, .B1, .C0, .C1 {
-//     border-right: 1px solid;
-//     box-shadow: 2px 0 0 rgba(0, 0, 0, .2);
-// }
 
 body {
     text-align: center;
@@ -68,4 +57,10 @@ button {
     box-shadow: $textShadow;
 
 
+}
+
+h1 {
+    font-family: $fred;
+    text-shadow: $textShadow;
+    font-size: 3em;
 }
