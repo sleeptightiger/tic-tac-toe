@@ -29,18 +29,50 @@ $colorO: #DB504A;
     float: left;
     font-size: 9vw;
     font-family: $fred;
-    transition: all 500ms ease-in-out;
+    transition: all 300ms ease-in-out;
     span {
         display: inline-block;
         transition: all 500ms ease-in-out;
     }
+    &:hover {
+        transform: scale(1.1);
+    }
 
 }
 
+@keyframes wiggle{
+    0% {
+
+        transform: rotate(2deg);
+
+    }
+
+    50% {
+
+        transform: rotate(-2deg);
+
+    }
+
+    100% {
+
+        transform: rotate(2deg);
+
+    }
+}
+
+.displayTurn:hover {
+
+
+    animation:wiggle .3s 2;
+
+}
 
 .strike {
     color: $alertColor ;
     transform: scale(1.4);
+    // &:hover {
+    //     transform: rotate(-20deg), rotate(20deg);
+    // }
 }
 
 
@@ -52,6 +84,7 @@ body {
 
 
 .displayTurn {
+
     font-size: 1em;
     letter-spacing: 2px;
     text-shadow: $alertText;
@@ -61,11 +94,14 @@ body {
     overflow: hidden;
     display: flex;
     color: white;
-    border-radius: 2px;
+    border-radius: 5px;
     box-shadow: $textShadow;
     position: absolute;
     left: 3%;
     top: 5%;
+    // transform: translate(-300px, 0);
+    // opacity: 0;
+    // transition: all 300ms ease-in-out;
 
     .win {
         background-color: $winColor;
@@ -81,7 +117,7 @@ body {
         background-color: $colorO;
     }
     span {
-        border-radius: 2px;
+        border-radius: 5px;
         float: left;
         //background-color: #f00;
         height: 100%;
@@ -133,6 +169,10 @@ button {
     color: $schoolBus;
     border-radius: 5px;
     box-shadow: $textShadow;
+    transition: all 200ms ease-in-out;
+    &:hover {
+        transform: scale(1.1);
+    }
 
 
 }
